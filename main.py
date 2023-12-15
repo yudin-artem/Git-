@@ -1,15 +1,15 @@
 import sys
 from random import randrange
 
-from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtGui import QPainter, QColor
+from UI import Ui_Form
 
 
-class Ellipses(QWidget):
+class Ellipses(QWidget, Ui_Form):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.do_paint = False
         self.pushButton.clicked.connect(self.paint)
 
@@ -26,7 +26,8 @@ class Ellipses(QWidget):
         self.update()
 
     def draw_ellipse(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
+        r, g, b = randrange(0, 256), randrange(0, 256), randrange(0, 256)
+        qp.setBrush(QColor(r, g, b))
         d = randrange(50, 150)
         x, y = randrange(1, 300), randrange(1, 200)
         qp.drawEllipse(x, y, d, d)
